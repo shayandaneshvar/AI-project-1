@@ -14,20 +14,32 @@ public class Presenter {
     private Pane gridContainer;
     private Board board;
     private static final int width = 20, height = 20;
+    private GreedyAlgorithm greedyAlgorithm;
 
     @FXML
     void generateBoard(ActionEvent event) {
         board = new Board(20, 20);
+        greedyAlgorithm = new GreedyAlgorithm(board);
         drawBoard();
     }
 
     void drawBoard() {
+        drawBoard(null);
+    }
+
+    void drawBoard(String failureColor) {
         GridPane gridPane = new GridPane();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Node gridItem;
                 if (board.isCurrentLocation(j, i)) {
-                    gridItem = generateLabel("green");
+                    if (board.hasReachedGoal()) {
+                        gridItem = generateLabel("yellowgreen");
+                    } else if (failureColor != null) {
+                        gridItem = generateLabel(failureColor);
+                    } else {
+                        gridItem = generateLabel("green");
+                    }
                 } else {
                     gridItem = generateGridItem(board.getBoardCell(j, i));
 
@@ -57,7 +69,11 @@ public class Presenter {
 
     @FXML
     void runGreedy(ActionEvent event) {
-
+        if (greedyAlgorithm.getNextState() == null) {
+            drawBoard("brown");
+            return;
+        }
+        drawBoard();
     }
 
 
