@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ir.ac.kntu.Presenter">
+   <children>
+      <Pane fx:id="gridContainer" layoutX="253.0" layoutY="24.0" prefHeight="603.0" prefWidth="623.0" />
+      <Button layoutX="55.0" layoutY="119.0" mnemonicParsing="false" onAction="#generateBoard" prefHeight="40.0" prefWidth="139.0" text="Generate Board" />
+      <Button layoutX="55.0" layoutY="216.0" mnemonicParsing="false" onAction="#runGreedy" prefHeight="40.0" prefWidth="139.0" text="Run Greedy" />
+      <Button layoutX="55.0" layoutY="313.0" mnemonicParsing="false" onAction="#runAStar" prefHeight="40.0" prefWidth="139.0" text="Run A Star" />
+   </children>
+</AnchorPane>
