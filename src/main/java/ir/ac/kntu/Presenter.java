@@ -1,5 +1,6 @@
 package ir.ac.kntu;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,9 +16,11 @@ public class Presenter {
     private Board board;
     private static final int width = 20, height = 20;
     private GreedyAlgorithm greedyAlgorithm;
+    private AnimationTimer timer = null;
 
     @FXML
     void generateBoard(ActionEvent event) {
+        cancelTimer();
         board = new Board(20, 20);
         greedyAlgorithm = new GreedyAlgorithm(board);
         drawBoard();
@@ -67,13 +70,38 @@ public class Presenter {
 
     }
 
+    public void cancelTimer() {
+        if (timer != null) {
+            timer.stop();
+        }
+    }
+
     @FXML
     void runGreedy(ActionEvent event) {
-        if (greedyAlgorithm.getNextState() == null) {
-            drawBoard("brown");
-            return;
-        }
-        drawBoard();
+        cancelTimer();
+
+        timer = new AnimationTimer() {
+            private Long time;
+
+            @Override
+            public void handle(long now) {
+                if (time == null) {
+                    time = now;
+                }
+
+                if (now - time < 0.2 * 1e9) {
+                    return;
+                }
+
+                time = now;
+                if (greedyAlgorithm.getNextState() == null) {
+                    drawBoard("brown");
+                    return;
+                }
+                drawBoard();
+            }
+        };
+        timer.start();
     }
 
 
