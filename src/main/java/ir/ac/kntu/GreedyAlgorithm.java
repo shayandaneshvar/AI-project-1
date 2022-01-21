@@ -17,7 +17,7 @@ public class GreedyAlgorithm extends Algorithm<Pair<Integer, Integer>> {
         Pair<Integer, Integer> next = getBoard().getNeighbourCells()
                 .stream()
                 .filter(z -> !getVisitedNodes().contains(z))
-                .min((x, y) -> (int) (heuristic(x) - heuristic(y)))
+                .min((x, y) -> (int) Math.round(heuristic(x) - heuristic(y)))
                 .orElse(null);
         if (next != null) {
             getBoard().setCurrentLocation(next);
@@ -25,8 +25,4 @@ public class GreedyAlgorithm extends Algorithm<Pair<Integer, Integer>> {
         return next;
     }
 
-    public double heuristic(Pair<Integer, Integer> node) {
-        return Math.hypot(node.getKey() - getBoard().getGoalLocation().getKey(),
-                node.getValue() - getBoard().getGoalLocation().getValue());
-    }
 }

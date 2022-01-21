@@ -7,10 +7,13 @@ public class AStarNode {
     private final Pair<Integer, Integer> location;
     private double shortestDistanceFromStart;
     private double heuristicDistanceToGoal;
-    private double totalDistance;
 
     public AStarNode(int x, int y) {
         this.location = new Pair<>(x, y);
+    }
+
+    public AStarNode(Pair<Integer, Integer> pair) {
+        this.location = pair;
     }
 
     public int getX() {
@@ -25,8 +28,9 @@ public class AStarNode {
         return previousNode;
     }
 
-    public void setPreviousNode(AStarNode previousNode) {
+    public AStarNode setPreviousNode(AStarNode previousNode) {
         this.previousNode = previousNode;
+        return this;
     }
 
     public Pair<Integer, Integer> getLocation() {
@@ -37,23 +41,22 @@ public class AStarNode {
         return shortestDistanceFromStart;
     }
 
-    public void setShortestDistanceFromStart(double shortestDistanceFromStart) {
+    public AStarNode setShortestDistanceFromStart(double shortestDistanceFromStart) {
         this.shortestDistanceFromStart = shortestDistanceFromStart;
+        return this;
     }
 
     public double getHeuristicDistanceToGoal() {
         return heuristicDistanceToGoal;
     }
 
-    public void setHeuristicDistanceToGoal(double heuristicDistanceToGoal) {
+    public AStarNode setHeuristicDistanceToGoal(double heuristicDistanceToGoal) {
         this.heuristicDistanceToGoal = heuristicDistanceToGoal;
+        return this;
     }
-
+    // f(n) = g(n) + h(n)
     public double getTotalDistance() {
-        return totalDistance;
+        return heuristicDistanceToGoal + shortestDistanceFromStart;
     }
 
-    public void setTotalDistance(double totalDistance) {
-        this.totalDistance = totalDistance;
-    }
 }

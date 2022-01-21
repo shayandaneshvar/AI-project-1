@@ -1,5 +1,7 @@
 package ir.ac.kntu;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,5 +22,9 @@ public abstract class Algorithm<T> {
         return board;
     }
     public abstract T getNextState();
-
+    // h(n)
+    public double heuristic(Pair<Integer,Integer> node){
+        return Math.hypot(node.getKey() - getBoard().getGoalLocation().getKey(),
+                node.getValue() - getBoard().getGoalLocation().getValue());
+    }
 }
